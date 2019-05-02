@@ -9,6 +9,7 @@ public class Cliente extends Pessoa {
     public Cliente(String cpf, String nome, double limiteCred) {
         super(cpf, nome);
         this.limiteCred = limiteCred;
+        this.limiteDisp = limiteCred;
     }
 
     public void setLimiteCred(double limiteCred) {
@@ -25,5 +26,9 @@ public class Cliente extends Pessoa {
     
     public void addPedido(Pedido pedido) {
         this.arrObjPedido.add(pedido);
+    }
+    
+    public void subLimiteDisp(double valor) {
+        this.limiteDisp -= valor;
     }
 }
