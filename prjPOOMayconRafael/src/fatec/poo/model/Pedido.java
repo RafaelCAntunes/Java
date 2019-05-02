@@ -44,11 +44,11 @@ private ItemPedido itemPedidoAux;
         return dataPagto;
     }
 
-    public boolean isFormaPagto() {
+    public boolean getFormaPagto() {
         return formaPagto;
     }
 
-    public boolean isSituacao() {
+    public boolean getSituacao() {
         return situacao;
     }
  
