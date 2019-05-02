@@ -27,9 +27,15 @@ public class ItemPedido {
         return qtdeVendida;
     }
     
+    public Produto getProduto() {
+        return produto;
+    }
+        
+    
     public void setPedido(Pedido pedido){
         
         this.pedido = pedido;
     }
-        
+
+    
 }

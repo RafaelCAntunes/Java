@@ -9,16 +9,13 @@ public class Pedido {
  private Cliente cliente;
  private Vendedor vendedor;
 private ArrayList<ItemPedido> itemPedido = new ArrayList<ItemPedido>();
-private ItemPedido itemPedidoAux;
+
  
  
-    public Pedido(String numero, String dataEmissao, Cliente cliente, Vendedor vendedor, int sequencia, double qtdeVendida, Produto produto) {
+    public Pedido(String numero, String dataEmissao) {
         this.numero = numero;
         this.dataEmissao = dataEmissao;
-        this.cliente = cliente;
-        this.vendedor = vendedor;
-        addItemPedido(sequencia,qtdeVendida,produto,this);
-    }
+        }
 
     public void setDataPagto(String dataPagto) {
         this.dataPagto = dataPagto;
@@ -52,12 +49,12 @@ private ItemPedido itemPedidoAux;
         return situacao;
     }
  
-    public final void addItemPedido(int sequencia, double qtdeVendida, Produto produto, Pedido pedido){
-        this.itemPedidoAux = new ItemPedido(sequencia,qtdeVendida,produto,pedido);
-        itemPedido.add(itemPedidoAux);
-        double valor = qtdeVendida * produto.getPreco();
+    public void addItemPedido(ItemPedido itemPedido){
+        
+        this.itemPedido.add(itemPedido);
+        //double valor = itemPedido.getQtdeVendida() * itemPedido.getProduto().getPreco();
         if (formaPagto) {
-            this.cliente.subLimiteDisp(valor);
+            this.cliente.subLimiteDisp(itemPedido.getQtdeVendida() * itemPedido.getProduto().getPreco());
         }
     }
 }
