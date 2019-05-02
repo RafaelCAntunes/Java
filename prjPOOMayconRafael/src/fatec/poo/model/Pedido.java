@@ -55,7 +55,9 @@ private ItemPedido itemPedidoAux;
     public final void addItemPedido(int sequencia, double qtdeVendida, Produto produto, Pedido pedido){
         this.itemPedidoAux = new ItemPedido(sequencia,qtdeVendida,produto,pedido);
         itemPedido.add(itemPedidoAux);
+        double valor = qtdeVendida * produto.getPreco();
+        if (formaPagto) {
+            this.cliente.subLimiteDisp(valor);
+        }
     }
- 
-    
 }
