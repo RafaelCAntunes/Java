@@ -1,14 +1,8 @@
 package fatec.poo.model;
 
 public class Pessoa {
-    private String cpf,
-                   nome,
-                   endereco,
-                   cidade,
-                   uf,
-                   cep,
-                   ddd,
-                   telefone;
+    private String cpf,nome,endereco,cidade,
+                   uf,cep,ddd,telefone;
 
     public Pessoa(String cpf, String nome) {
         this.cpf = cpf;
