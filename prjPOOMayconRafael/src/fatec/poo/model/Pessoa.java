@@ -9,6 +9,7 @@ public class Pessoa {
                    cep,
                    ddd,
                    telefone;
+    private int teste;
 
     public Pessoa(String cpf, String nome) {
         this.cpf = cpf;
