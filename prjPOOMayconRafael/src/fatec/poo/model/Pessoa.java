@@ -38,5 +38,38 @@ public class Pessoa {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public String getDdd() {
+        return ddd;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+    
     
 }
