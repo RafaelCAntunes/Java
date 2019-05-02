@@ -8,7 +8,7 @@ public class Pedido {
  private boolean formaPagto,situacao;
  private Cliente cliente;
  private Vendedor vendedor;
-private ArrayList<ItemPedido> itemPedido = new ArrayList();
+private ArrayList<ItemPedido> itemPedido = new ArrayList<ItemPedido>();
 private ItemPedido itemPedidoAux;
  
  
