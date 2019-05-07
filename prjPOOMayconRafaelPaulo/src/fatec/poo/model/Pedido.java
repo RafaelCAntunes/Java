@@ -48,6 +48,22 @@ private ArrayList<ItemPedido> itemPedido = new ArrayList<ItemPedido>();
     public boolean getSituacao() {
         return situacao;
     }
+    
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+    public Cliente getCliente() {
+        return cliente;
+    }
+    
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }
+    
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
  
     public void addItemPedido(ItemPedido itemPedido){
         
