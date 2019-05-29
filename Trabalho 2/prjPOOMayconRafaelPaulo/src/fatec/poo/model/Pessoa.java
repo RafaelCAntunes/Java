@@ -65,5 +65,32 @@ public class Pessoa {
         return telefone;
     }
     
+    public static boolean validarCPF(String cpf){
+        cpf = cpf.replace(".","");
+        cpf = cpf.replace("-","");
+        int firstDigit = 0;
+        int secondDigit = 0;
+        
+        char[] arrCPF = new char[11];
+        arrCPF = cpf.toCharArray();
+        
+        for(int i = 0; i < arrCPF.length-2; i++){
+         firstDigit += Character.getNumericValue(arrCPF[i])* (i+1);
+         secondDigit += Character.getNumericValue(arrCPF[i]) * (11-i);
+        }
+        firstDigit %= 11;
+        
+        if (firstDigit == 10) {
+            firstDigit = 0;
+        }
+        
+        secondDigit = ((secondDigit  + firstDigit *2) * 10) % 11;
+        
+        if (secondDigit == 10) {
+            secondDigit = 0;
+        }
+        
+        return firstDigit == arrCPF[9] && secondDigit == arrCPF[10];
+    }
     
 }
