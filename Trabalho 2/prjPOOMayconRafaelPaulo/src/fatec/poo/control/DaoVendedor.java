@@ -47,7 +47,8 @@ public class DaoVendedor {
     public void inserir(Vendedor vendedor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement(" INSERT INTO vendedor_poo(cpf,nome,endereco,cidade,uf,cep,ddd,telefone,salario_base,taxa_comissao)VALUES(?,?,?,?,?,?,?,?,?,?)");
+            ps = conn.prepareStatement(" INSERT INTO vendedor_poo(cpf,nome,endereco,cidade,uf,cep,ddd,telefone,salario_base,taxa_comissao)" 
+                                     + " VALUES(?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, vendedor.getCpf());
             ps.setString(2, vendedor.getNome());
             ps.setString(3, vendedor.getEndereco());
@@ -68,18 +69,28 @@ public class DaoVendedor {
     public void alterar(Vendedor vendedor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement(" UPDATE vendedor_poo SET cpf = ?, nome = ?, endereco = ?, cidade = ?, uf = ?, cep = ?, ddd = ?, telefone = ?, salario_base = ?, taxa_comissao = ?");
+            ps = conn.prepareStatement(" UPDATE vendedor_poo      "
+                                     + "    SET nome = ?,         "
+                                     + "        endereco = ?,     "
+                                     + "        cidade = ?,       "
+                                     + "        uf = ?,           "
+                                     + "        cep = ?,          "
+                                     + "        ddd = ?,          "
+                                     + "        telefone = ?,     "
+                                     + "        salario_base = ?, "
+                                     + "        taxa_comissao = ? "
+                                     + "  WHERE cpf = ?           ");
             
-            ps.setString(1, vendedor.getCpf());
-            ps.setString(2, vendedor.getNome());
-            ps.setString(3, vendedor.getEndereco());
-            ps.setString(4, vendedor.getCidade());
-            ps.setString(5, vendedor.getUf());
-            ps.setString(6, vendedor.getCep());
-            ps.setString(7, vendedor.getDdd());
-            ps.setString(8, vendedor.getTelefone());
-            ps.setDouble(9, vendedor.getSalarioBase());
-            ps.setDouble(10, vendedor.getTaxaComissao());
+            ps.setString(1, vendedor.getNome());
+            ps.setString(2, vendedor.getEndereco());
+            ps.setString(3, vendedor.getCidade());
+            ps.setString(4, vendedor.getUf());
+            ps.setString(5, vendedor.getCep());
+            ps.setString(6, vendedor.getDdd());
+            ps.setString(7, vendedor.getTelefone());
+            ps.setDouble(8, vendedor.getSalarioBase());
+            ps.setDouble(9, vendedor.getTaxaComissao());
+            ps.setString(10, vendedor.getCpf());
             
             ps.execute();
         } catch (SQLException ex) {

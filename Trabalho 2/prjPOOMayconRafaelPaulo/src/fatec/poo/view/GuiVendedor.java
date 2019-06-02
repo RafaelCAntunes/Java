@@ -113,6 +113,11 @@ public class GuiVendedor extends javax.swing.JFrame {
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Nome");
@@ -379,9 +384,17 @@ public class GuiVendedor extends javax.swing.JFrame {
             vendedor.setTaxaComissao(Double.parseDouble(txtTaxaComissao.getText()));
             vendedor.setTelefone(txtTelefone.getText());
             vendedor.setUf(String.valueOf(cbUF.getSelectedItem()));
+            
+            HabilitaComponentes("ALTERAR", false);
         }
-        HabilitaComponentes("ALTERAR", false);
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
+            daoVendedor.excluir(vendedor);
+            HabilitaComponentes("ALTERAR", false);
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
