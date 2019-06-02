@@ -90,7 +90,7 @@ public class Pessoa {
             secondDigit = 0;
         }
         
-        return firstDigit == arrCPF[9] && secondDigit == arrCPF[10];
+        return firstDigit == Character.getNumericValue(arrCPF[9]) && secondDigit == Character.getNumericValue(arrCPF[10]);
     }
     
 }

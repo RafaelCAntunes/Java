@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 import fatec.poo.model.Vendedor;
+import java.sql.ResultSetMetaData;
 
 public class DaoVendedor {
     
@@ -21,12 +22,20 @@ public class DaoVendedor {
         
         try {
             ps = conn.prepareStatement("SELECT * FROM vendedor_poo WHERE cpf = ? ");
-            
+                        
             ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
+            System.out.println(rs.getStatement().toString());
             
             if(rs.next()) {
                 vendedor = new Vendedor (cpf, rs.getString("nome"), rs.getDouble("salario_base"));
+                vendedor.setEndereco(rs.getString("ENDERECO"));
+                vendedor.setCidade(rs.getString("CIDADE"));
+                vendedor.setUf(rs.getString("UF"));
+                vendedor.setCep(rs.getString("CEP"));
+                vendedor.setDdd(rs.getString("DDD"));
+                vendedor.setTelefone(rs.getString("TELEFONE"));
+                vendedor.setTaxaComissao(rs.getDouble("TAXA_COMISSAO"));
             }
         }
         catch (SQLException ex) {
