@@ -92,7 +92,6 @@ public class GuiVendedor extends javax.swing.JFrame {
             }
         });
 
-        txtNome.setEditable(false);
         txtNome.setEnabled(false);
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
@@ -107,7 +106,6 @@ public class GuiVendedor extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("CPF");
 
-        txtEndereco.setEditable(false);
         txtEndereco.setEnabled(false);
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
@@ -122,7 +120,6 @@ public class GuiVendedor extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Nome");
 
-        txtCidade.setEditable(false);
         txtCidade.setEnabled(false);
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
@@ -136,31 +133,26 @@ public class GuiVendedor extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Endereço");
 
-        txtDDD.setEditable(false);
         txtDDD.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Cidade");
 
-        txtTelefone.setEditable(false);
         txtTelefone.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Telefone");
 
-        txtSalBase.setEditable(false);
         txtSalBase.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Taxa de Comissão");
 
-        txtCEP.setEditable(false);
         txtCEP.setEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("CEP");
 
-        txtTaxaComissao.setEditable(false);
         txtTaxaComissao.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -194,16 +186,17 @@ public class GuiVendedor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCidade)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbUF, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtEndereco)
                             .addComponent(txtNome)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbUF, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
@@ -289,7 +282,7 @@ public class GuiVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        conexao = new Conexao("BD1723010","BD1723010");
+        conexao = new Conexao("BD1723028","BD1723028");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
         conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
         daoVendedor = new DaoVendedor(conexao.conectar());  
@@ -312,15 +305,18 @@ public class GuiVendedor extends javax.swing.JFrame {
         txtTelefone.setEnabled(habilita);
         txtNome.requestFocus();
         cbUF.setEnabled(habilita); 
-                
-        txtCEP.setEditable(habilita);
-        txtCidade.setEditable(habilita);
-        txtDDD.setEditable(habilita);
-        txtEndereco.setEditable(habilita);
-        txtNome.setEditable(habilita);
-        txtSalBase.setEditable(habilita);
-        txtTaxaComissao.setEditable(habilita);
-        txtTelefone.setEditable(habilita);
+        
+        if(!habilita) {
+            txtCPF.setText("");
+        }
+        txtCEP.setText("");
+        txtCidade.setText("");
+        txtDDD.setText("");
+        txtEndereco.setText("");
+        txtNome.setText("");
+        txtSalBase.setText("");
+        txtTaxaComissao.setText("");
+        txtTelefone.setText("");
         txtNome.requestFocus();
         cbUF.setEnabled(habilita);
         
@@ -336,7 +332,7 @@ public class GuiVendedor extends javax.swing.JFrame {
         }
     }
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        if(Pessoa.validarCPF(txtCPF.getText())) {
+        if(Pessoa.validarCPF(txtCPF.getText()) && txtCPF.getText().replace(".", "").replace("-", "").replace(" ", "").length() != 0) {
             vendedor = null;
             vendedor = daoVendedor.consultar(txtCPF.getText().replace(".", "").replace("-", ""));
             
@@ -344,15 +340,17 @@ public class GuiVendedor extends javax.swing.JFrame {
                 HabilitaComponentes("INCLUIR",true);
             } else {
                 HabilitaComponentes("ALTERAR",true);
+            
+                txtNome.setText(vendedor.getNome());
+                cbUF.setSelectedItem(vendedor.getUf());
+                txtEndereco.setText(vendedor.getEndereco());
+                txtCEP.setText(vendedor.getCep());
+                txtCidade.setText(vendedor.getCidade());
+                txtDDD.setText(vendedor.getDdd());
+                txtTelefone.setText(vendedor.getTelefone());
+                txtTaxaComissao.setText(Double.toString(vendedor.getTaxaComissao()));
+                txtSalBase.setText(Double.toString(vendedor.getSalarioBase()));
             }
-            txtNome.setText(vendedor.getNome());
-            cbUF.setSelectedItem(vendedor.getUf());
-            txtCEP.setText(vendedor.getCep());
-            txtCidade.setText(vendedor.getCidade());
-            txtDDD.setText(vendedor.getDdd());
-            txtTelefone.setText(vendedor.getTelefone());
-            txtTaxaComissao.setText(Double.toString(vendedor.getTaxaComissao()));
-            txtSalBase.setText(Double.toString(vendedor.getSalarioBase()));
         }
         else {
             JOptionPane.showConfirmDialog(null, "CPF Inválido","Erro",JOptionPane.DEFAULT_OPTION);

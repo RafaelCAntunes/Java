@@ -25,7 +25,6 @@ public class DaoVendedor {
                         
             ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
-            System.out.println(rs.getStatement().toString());
             
             if(rs.next()) {
                 vendedor = new Vendedor (cpf, rs.getString("nome"), rs.getDouble("salario_base"));

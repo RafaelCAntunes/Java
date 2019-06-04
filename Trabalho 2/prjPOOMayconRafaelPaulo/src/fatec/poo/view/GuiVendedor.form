@@ -50,17 +50,19 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="txtCidade" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cbUF" min="-2" pref="42" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="txtEndereco" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtNome" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtCPF" min="-2" pref="105" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtCPF" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="txtCidade" min="-2" pref="381" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="cbUF" min="-2" pref="48" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -193,7 +195,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtNome">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -219,7 +220,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtEndereco">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -245,7 +245,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCidade">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -270,7 +269,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtDDD">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -284,7 +282,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtTelefone">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -298,7 +295,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtSalBase">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -312,7 +308,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCEP">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -326,7 +321,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtTaxaComissao">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
