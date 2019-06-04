@@ -140,14 +140,29 @@ public class GuiCliente extends javax.swing.JFrame {
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -295,6 +310,13 @@ public class GuiCliente extends javax.swing.JFrame {
         if (Pessoa.validarCPF(txtCPF.getText())) {
             cliente = null;
             cliente = daoCliente.consultar(txtCPF.getText().replace(".","").replace("-","") );
+            
+            if (cliente == null) {
+            HabilitaComponentes("INCLUIR",true);
+            }
+            else{ 
+            HabilitaComponentes("ALTERAR",true);
+            
             txtNome.setText(cliente.getNome());
             cbUF.addItem(cliente.getUf());
             txtEndereco.setText(cliente.getEndereco());
@@ -305,6 +327,8 @@ public class GuiCliente extends javax.swing.JFrame {
             txtLimiteCredito.setText(String.valueOf(cliente.getLimiteCred()));
             lbllLimiteDisp.setText(String.valueOf(cliente.getLimiteDisp()));
             
+      
+            }
         }
             
             
@@ -316,6 +340,48 @@ public class GuiCliente extends javax.swing.JFrame {
     
     }//GEN-LAST:event_btnConsultarActionPerformed
 
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        Cliente cliente = new Cliente(Pessoa.retiraCaracteres(txtCPF.getText()), txtNome.getText(), Double.parseDouble(txtLimiteCredito.getText()));
+        cliente.setCep(txtCEP.getText());
+        cliente.setCidade(txtCidade.getText());
+        cliente.setDdd(txtDDD.getText());
+        cliente.setEndereco(txtEndereco.getText());
+        
+               
+        cliente.setTelefone(txtTelefone.getText());
+        cliente.setUf(String.valueOf(cbUF.getSelectedItem()));
+        
+        daoCliente.inserir(cliente);
+        
+        HabilitaComponentes("INCLUIR", false);
+        
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        
+        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
+            cliente.setNome(txtNome.getText());
+            cliente.setCep(txtCEP.getText());
+            cliente.setCidade(txtCidade.getText());
+            cliente.setDdd(txtDDD.getText());
+            cliente.setEndereco(txtEndereco.getText());
+            cliente.setLimiteCred(Double.parseDouble(txtLimiteCredito.getText()));
+            cliente.setTelefone(txtTelefone.getText());
+            cliente.setUf(String.valueOf(cbUF.getSelectedItem()));
+            daoCliente.alterar(cliente);
+            
+            HabilitaComponentes("ALTERAR", false);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+         if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
+            daoCliente.excluir(cliente);
+            
+            HabilitaComponentes("ALTERAR", false);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
@@ -350,7 +416,45 @@ public class GuiCliente extends javax.swing.JFrame {
             }
         });
     }
-
+private void HabilitaComponentes(String opt, boolean habilita) {
+        
+        txtCEP.setEnabled(habilita);
+        txtCidade.setEnabled(habilita);
+        txtDDD.setEnabled(habilita);
+        txtEndereco.setEnabled(habilita);
+        txtNome.setEnabled(habilita);
+        txtLimiteCredito.setEnabled(habilita);
+        lbllLimiteDisp.setEnabled(habilita);
+        txtTelefone.setEnabled(habilita);
+        txtNome.requestFocus();
+        cbUF.setEnabled(habilita);
+        btnConsultar.setEnabled(!habilita);
+        txtCPF.setEnabled(!habilita);
+        
+        
+        
+        if(!habilita) {
+            txtCPF.setText("");
+            txtCPF.requestFocus();
+            txtCEP.setText("");
+            txtCidade.setText("");
+            txtDDD.setText("");
+            txtEndereco.setText("");
+            txtNome.setText("");
+           txtLimiteCredito .setText("");
+            lbllLimiteDisp.setText("");
+            txtTelefone.setText("");
+            cbUF.setSelectedIndex(-1);
+        }
+                
+        if(opt == "ALTERAR") {
+            btnAlterar.setEnabled(habilita);
+            btnExcluir.setEnabled(habilita);
+        }
+        else if(opt == "INCLUIR") {
+            btnIncluir.setEnabled(habilita);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnConsultar;
