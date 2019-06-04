@@ -101,7 +101,6 @@ public class GuiCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        txtNome.setEditable(false);
         txtNome.setEnabled(false);
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,24 +108,21 @@ public class GuiCliente extends javax.swing.JFrame {
             }
         });
 
-        txtEndereco.setEditable(false);
         txtEndereco.setEnabled(false);
 
-        txtCidade.setEditable(false);
         txtCidade.setEnabled(false);
 
-        txtDDD.setEditable(false);
         txtDDD.setEnabled(false);
 
-        txtTelefone.setEditable(false);
         txtTelefone.setEnabled(false);
 
-        txtLimiteCredito.setEditable(false);
         txtLimiteCredito.setEnabled(false);
 
-        txtCEP.setEditable(false);
         txtCEP.setEnabled(false);
 
+        cbUF.setEditable(true);
+        cbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        cbUF.setSelectedIndex(-1);
         cbUF.setEnabled(false);
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
@@ -309,7 +305,7 @@ public class GuiCliente extends javax.swing.JFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         if (Pessoa.validarCPF(txtCPF.getText())) {
             cliente = null;
-            cliente = daoCliente.consultar(txtCPF.getText().replace(".","").replace("-","") );
+            cliente = daoCliente.consultar(Pessoa.retiraCaracteres(txtCPF.getText()));
             
             if (cliente == null) {
             HabilitaComponentes("INCLUIR",true);
@@ -318,7 +314,7 @@ public class GuiCliente extends javax.swing.JFrame {
             HabilitaComponentes("ALTERAR",true);
             
             txtNome.setText(cliente.getNome());
-            cbUF.addItem(cliente.getUf());
+            cbUF.setSelectedItem(cliente.getUf());
             txtEndereco.setText(cliente.getEndereco());
             txtCidade.setText(cliente.getCidade());
             txtDDD.setText(cliente.getDdd());

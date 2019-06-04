@@ -45,8 +45,8 @@ public class DaoCliente {
     public void alterar(Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE CLIENTE set NOME = ?, ENDERECO = ?," +
-            "CIDADE = ?, UF = ?, DDD = ?, TELEFONE = ?, LIMITE_CRED = ?, LIMITE_DISP = ?" +
+            ps = conn.prepareStatement("UPDATE CLIENTE_POO set NOME = ?, ENDERECO = ?," +
+            "CIDADE = ?, UF = ?,CEP = ?, DDD = ?, TELEFONE = ?, LIMITE_CRED = ?, LIMITE_DISP = ?" +
             "where CPF = ?");
             
             
@@ -77,7 +77,7 @@ public class DaoCliente {
        
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("SELECT * from CLIENTE where " +
+            ps = conn.prepareStatement("SELECT * from CLIENTE_POO where " +
                                                  "CPF = ?");
             
             ps.setString(1, cpf);
@@ -103,7 +103,7 @@ public class DaoCliente {
      public void excluir(Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM CLIENTE where CPF = ?");
+            ps = conn.prepareStatement("DELETE FROM CLIENTE_POO where CPF = ?");
             
             ps.setString(1, cliente.getCpf());
                       
