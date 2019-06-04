@@ -159,6 +159,7 @@ public class GuiVendedor extends javax.swing.JFrame {
         jLabel8.setText("Salário Base");
 
         cbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        cbUF.setSelectedIndex(-1);
         cbUF.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -192,11 +193,11 @@ public class GuiVendedor extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbUF, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(cbUF, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
@@ -304,24 +305,23 @@ public class GuiVendedor extends javax.swing.JFrame {
         txtTaxaComissao.setEnabled(habilita);
         txtTelefone.setEnabled(habilita);
         txtNome.requestFocus();
-        cbUF.setEnabled(habilita); 
+        cbUF.setEnabled(habilita);
+        btnConsultar.setEnabled(!habilita);
+        txtCPF.setEnabled(!habilita);
         
         if(!habilita) {
             txtCPF.setText("");
+            txtCPF.requestFocus();
+            txtCEP.setText("");
+            txtCidade.setText("");
+            txtDDD.setText("");
+            txtEndereco.setText("");
+            txtNome.setText("");
+            txtSalBase.setText("");
+            txtTaxaComissao.setText("");
+            txtTelefone.setText("");
+            cbUF.setSelectedIndex(-1);
         }
-        txtCEP.setText("");
-        txtCidade.setText("");
-        txtDDD.setText("");
-        txtEndereco.setText("");
-        txtNome.setText("");
-        txtSalBase.setText("");
-        txtTaxaComissao.setText("");
-        txtTelefone.setText("");
-        txtNome.requestFocus();
-        cbUF.setEnabled(habilita);
-        
-        btnConsultar.setEnabled(!habilita);
-        txtCPF.setEnabled(!habilita);
                 
         if(opt == "ALTERAR") {
             btnAlterar.setEnabled(habilita);
@@ -332,9 +332,9 @@ public class GuiVendedor extends javax.swing.JFrame {
         }
     }
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        if(Pessoa.validarCPF(txtCPF.getText()) && txtCPF.getText().replace(".", "").replace("-", "").replace(" ", "").length() != 0) {
+        if(Pessoa.validarCPF(txtCPF.getText()) && !Pessoa.retiraCaracteres(txtCPF.getText()).equals("")) {
             vendedor = null;
-            vendedor = daoVendedor.consultar(txtCPF.getText().replace(".", "").replace("-", ""));
+            vendedor = daoVendedor.consultar(Pessoa.retiraCaracteres(txtCPF.getText()));
             
             if(vendedor == null) {
                 HabilitaComponentes("INCLUIR",true);
@@ -359,12 +359,14 @@ public class GuiVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        Vendedor vendedor = new Vendedor(txtCPF.getText().replace(".", "").replace("-", ""), txtNome.getText(), Double.parseDouble(txtSalBase.getText()));
+        Vendedor vendedor = new Vendedor(Pessoa.retiraCaracteres(txtCPF.getText()), txtNome.getText(), Double.parseDouble(txtSalBase.getText()));
         vendedor.setCep(txtCEP.getText());
         vendedor.setCidade(txtCidade.getText());
         vendedor.setDdd(txtDDD.getText());
         vendedor.setEndereco(txtEndereco.getText());
-        vendedor.setTaxaComissao(Double.parseDouble(txtTaxaComissao.getText()));
+        if(!txtTaxaComissao.getText().equals("")) {
+            vendedor.setTaxaComissao(Double.parseDouble(txtTaxaComissao.getText()));
+        }
         vendedor.setTelefone(txtTelefone.getText());
         vendedor.setUf(String.valueOf(cbUF.getSelectedItem()));
         
@@ -375,6 +377,7 @@ public class GuiVendedor extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
+            vendedor.setNome(txtNome.getText());
             vendedor.setCep(txtCEP.getText());
             vendedor.setCidade(txtCidade.getText());
             vendedor.setDdd(txtDDD.getText());
@@ -382,6 +385,7 @@ public class GuiVendedor extends javax.swing.JFrame {
             vendedor.setTaxaComissao(Double.parseDouble(txtTaxaComissao.getText()));
             vendedor.setTelefone(txtTelefone.getText());
             vendedor.setUf(String.valueOf(cbUF.getSelectedItem()));
+            daoVendedor.alterar(vendedor);
             
             HabilitaComponentes("ALTERAR", false);
         }
@@ -390,6 +394,7 @@ public class GuiVendedor extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
             daoVendedor.excluir(vendedor);
+            
             HabilitaComponentes("ALTERAR", false);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed

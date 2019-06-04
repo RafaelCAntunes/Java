@@ -8,6 +8,10 @@ public class Pessoa {
         this.cpf = cpf;
         this.nome = nome;
     }
+    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
@@ -66,8 +70,7 @@ public class Pessoa {
     }
     
     public static boolean validarCPF(String cpf){
-        cpf = cpf.replace(".","");
-        cpf = cpf.replace("-","");
+        cpf = retiraCaracteres(cpf);
         int firstDigit = 0;
         int secondDigit = 0;
         
@@ -91,6 +94,10 @@ public class Pessoa {
         }
         
         return firstDigit == Character.getNumericValue(arrCPF[9]) && secondDigit == Character.getNumericValue(arrCPF[10]);
+    }
+    
+    public static String retiraCaracteres(String cpf) {
+        return cpf.replace(".", "").replace("-", "").replace(" ", "");
     }
     
 }

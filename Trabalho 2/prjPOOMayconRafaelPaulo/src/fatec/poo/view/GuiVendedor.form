@@ -56,11 +56,11 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtCPF" min="-2" pref="105" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtCidade" min="-2" pref="381" max="-2" attributes="0"/>
+                                      <Component id="txtCidade" min="-2" pref="367" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="cbUF" min="-2" pref="48" max="-2" attributes="0"/>
+                                      <Component id="cbUF" min="-2" pref="62" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -365,6 +365,7 @@
             <StringItem index="26" value="TO"/>
           </StringArray>
         </Property>
+        <Property name="selectedIndex" type="int" value="-1"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
