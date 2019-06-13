@@ -31,10 +31,12 @@ public class Cliente extends Pessoa {
     public void subLimiteDisp(double valor) {
         this.limiteDisp -= valor;
     }
+    
+    public void addLimiteDisp(double valor) {
+        this.limiteDisp += valor;
+    }
 
     public void setLimiteDisp(double limiteDisp) {
         this.limiteDisp = limiteDisp;
     }
-
-    
 }
