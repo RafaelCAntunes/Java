@@ -177,14 +177,14 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         msktxtCPFCliente.setName("msktxtCPFCliente"); // NOI18N
-        msktxtCPFCliente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                msktxtCPFClienteFocusLost(evt);
-            }
-        });
 
         btnPesquisarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnPesquisarCliente.setName("btnPesquisarCliente"); // NOI18N
+        btnPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarClienteActionPerformed(evt);
+            }
+        });
 
         lblNomeCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         lblNomeCliente.setName("lblNomeCliente"); // NOI18N
@@ -453,18 +453,20 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
         conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:POO"); //("jdbc:oracle:thin:@apolo:1521:xe");
         daoPedido = new DaoPedido(conexao.conectar());
+        daoCliente = new DaoCliente(conexao.conectar());
     }//GEN-LAST:event_formWindowActivated
 
-    private void msktxtCPFClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_msktxtCPFClienteFocusLost
+    private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
         if(Pessoa.validarCPF(Pessoa.retiraCaracteres(msktxtCPFCliente.getText()))) {
             cliente = daoCliente.consultar(Pessoa.retiraCaracteres(msktxtCPFCliente.getText()));
             lblNomeCliente.setText(cliente.getNome());
         }
         else {
             JOptionPane.showConfirmDialog(null, "CPF Inválido","Erro",JOptionPane.DEFAULT_OPTION);
+            lblNomeCliente.setText("");
             msktxtCPFCliente.requestFocus();
         }
-    }//GEN-LAST:event_msktxtCPFClienteFocusLost
+    }//GEN-LAST:event_btnPesquisarClienteActionPerformed
 
     /**
      * @param args the command line arguments

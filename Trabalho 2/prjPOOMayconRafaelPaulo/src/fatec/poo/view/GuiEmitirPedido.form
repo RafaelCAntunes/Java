@@ -280,9 +280,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="msktxtCPFCliente" noResource="true"/>
           </Properties>
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="msktxtCPFClienteFocusLost"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnPesquisarCliente">
           <Properties>
@@ -291,6 +288,9 @@
             </Property>
             <Property name="name" type="java.lang.String" value="btnPesquisarCliente" noResource="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarClienteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNomeCliente">
           <Properties>
