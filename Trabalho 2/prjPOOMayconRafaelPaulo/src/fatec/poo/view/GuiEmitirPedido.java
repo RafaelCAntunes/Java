@@ -6,7 +6,13 @@
 package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoCliente;
+import fatec.poo.control.DaoPedido;
+import fatec.poo.control.DaoVendedor;
+import fatec.poo.model.Cliente;
 import fatec.poo.model.Pedido;
+import fatec.poo.model.Pessoa;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -80,7 +86,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pedido", 0, 0, new java.awt.Font("Dialog", 0, 12))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pedido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
         try {
             msktxtDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -98,7 +104,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         jLabel2.setText("Data do Pedido");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "", 0, 0, new java.awt.Font("Dialog", 0, 12)), "Forma de Pagamento", 0, 0, new java.awt.Font("Dialog", 0, 12))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12)), "Forma de Pagamento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
         buttonGroup1.add(rdbAVista);
         rdbAVista.setText("A Vista");
@@ -151,17 +157,17 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPesquisarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(txtNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnPesquisarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(msktxtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cliente", 0, 0, new java.awt.Font("Dialog", 0, 12))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
         jLabel3.setText("CPF Cliente");
 
@@ -171,11 +177,16 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         msktxtCPFCliente.setName("msktxtCPFCliente"); // NOI18N
+        msktxtCPFCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                msktxtCPFClienteFocusLost(evt);
+            }
+        });
 
         btnPesquisarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnPesquisarCliente.setName("btnPesquisarCliente"); // NOI18N
 
-        lblNomeCliente.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblNomeCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         lblNomeCliente.setName("lblNomeCliente"); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -206,7 +217,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Vendedor", 0, 0, new java.awt.Font("Dialog", 0, 12))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Vendedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
         jLabel4.setText("CPF Vendedor");
         jLabel4.setName(""); // NOI18N
@@ -221,7 +232,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         btnPesquisarVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnPesquisarVendedor.setName("btnPesquisarVendedor"); // NOI18N
 
-        lblVendedor.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblVendedor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         lblVendedor.setName("lblNomeVendedor"); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -289,11 +300,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         jLabel9.setText("Quantidade de Itens do Pedido");
 
-        lblDescricaoProduto.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblDescricaoProduto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        lblQtdeItemPedido.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblQtdeItemPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        lblValorTotPedido.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblValorTotPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -438,11 +449,22 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        conexao = new Conexao("BD1723010","BD1723010");
+        conexao = new Conexao("system","May100594"); //("BD1723010","BD1723010");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
-        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
-        //daoEmitirPedido = new DaoEmitirPedido(conexao.conectar());
+        conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:POO"); //("jdbc:oracle:thin:@apolo:1521:xe");
+        daoPedido = new DaoPedido(conexao.conectar());
     }//GEN-LAST:event_formWindowActivated
+
+    private void msktxtCPFClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_msktxtCPFClienteFocusLost
+        if(Pessoa.validarCPF(Pessoa.retiraCaracteres(msktxtCPFCliente.getText()))) {
+            cliente = daoCliente.consultar(Pessoa.retiraCaracteres(msktxtCPFCliente.getText()));
+            lblNomeCliente.setText(cliente.getNome());
+        }
+        else {
+            JOptionPane.showConfirmDialog(null, "CPF Inválido","Erro",JOptionPane.DEFAULT_OPTION);
+            msktxtCPFCliente.requestFocus();
+        }
+    }//GEN-LAST:event_msktxtCPFClienteFocusLost
 
     /**
      * @param args the command line arguments
@@ -523,4 +545,8 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     //private DaoEmitirPedido daoEmitirPedido = null;
     private Pedido pedido = null;
     private Conexao conexao = null;
+    private DaoPedido daoPedido = null;
+    private DaoCliente daoCliente = null;
+    private DaoVendedor daoVendedor = null;
+    private Cliente cliente = null;
 }
