@@ -8,10 +8,16 @@ package fatec.poo.view;
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCliente;
 import fatec.poo.control.DaoPedido;
+import fatec.poo.control.DaoProduto;
 import fatec.poo.control.DaoVendedor;
 import fatec.poo.model.Cliente;
 import fatec.poo.model.Pedido;
 import fatec.poo.model.Pessoa;
+import fatec.poo.model.Produto;
+import fatec.poo.model.Vendedor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,7 +61,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         msktxtCPFVendedor = new javax.swing.JFormattedTextField();
         btnPesquisarVendedor = new javax.swing.JButton();
-        lblVendedor = new javax.swing.JLabel();
+        lblNomeVendedor = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtCodigoProduto = new javax.swing.JTextField();
@@ -93,7 +99,13 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        msktxtDataPedido.setEnabled(false);
         msktxtDataPedido.setName("msktxtDataPedido"); // NOI18N
+        msktxtDataPedido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                msktxtDataPedidoFocusLost(evt);
+            }
+        });
 
         jLabel1.setText("Número do Pedido");
 
@@ -101,6 +113,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         btnPesquisarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnPesquisarPedido.setName("btnPesquisaPedido"); // NOI18N
+        btnPesquisarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarPedidoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Data do Pedido");
 
@@ -145,11 +162,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addComponent(txtNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(msktxtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(msktxtDataPedido)
+                .addGap(24, 24, 24)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -176,9 +193,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        msktxtCPFCliente.setEnabled(false);
         msktxtCPFCliente.setName("msktxtCPFCliente"); // NOI18N
 
         btnPesquisarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnPesquisarCliente.setEnabled(false);
         btnPesquisarCliente.setName("btnPesquisarCliente"); // NOI18N
         btnPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,13 +246,20 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        msktxtCPFVendedor.setEnabled(false);
         msktxtCPFVendedor.setName("msktxtCPFVendedor"); // NOI18N
 
         btnPesquisarVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnPesquisarVendedor.setEnabled(false);
         btnPesquisarVendedor.setName("btnPesquisarVendedor"); // NOI18N
+        btnPesquisarVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarVendedorActionPerformed(evt);
+            }
+        });
 
-        lblVendedor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        lblVendedor.setName("lblNomeVendedor"); // NOI18N
+        lblNomeVendedor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblNomeVendedor.setName("lblNomeVendedor"); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -247,7 +273,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisarVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblVendedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblNomeVendedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -255,7 +281,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblVendedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNomeVendedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btnPesquisarVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -268,15 +294,27 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         jLabel6.setText("Código do Produto");
 
+        txtCodigoProduto.setEnabled(false);
+
         btnPesquisarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnPesquisarProduto.setEnabled(false);
+        btnPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Qtde. Vendida");
 
+        txtQuantidadeVendida.setEnabled(false);
+
         btnAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnAdicionarItem.setText("Adicionar Item");
+        btnAdicionarItem.setEnabled(false);
 
         btnRemoverItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnRemoverItem.setText("Remover Item");
+        btnRemoverItem.setEnabled(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -449,9 +487,9 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        conexao = new Conexao("system","May100594"); //("BD1723010","BD1723010");
+        conexao = new Conexao("BD1723010","BD1723010");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
-        conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:POO"); //("jdbc:oracle:thin:@apolo:1521:xe");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
         daoPedido = new DaoPedido(conexao.conectar());
         daoCliente = new DaoCliente(conexao.conectar());
     }//GEN-LAST:event_formWindowActivated
@@ -459,7 +497,17 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
         if(Pessoa.validarCPF(Pessoa.retiraCaracteres(msktxtCPFCliente.getText()))) {
             cliente = daoCliente.consultar(Pessoa.retiraCaracteres(msktxtCPFCliente.getText()));
-            lblNomeCliente.setText(cliente.getNome());
+            if(cliente == null) {
+                JOptionPane.showConfirmDialog(null, "O Código do Cliente não existe!","Erro",JOptionPane.DEFAULT_OPTION);
+            }
+            else {
+                lblNomeCliente.setText(cliente.getNome());
+                pedido.setCliente(cliente);
+                msktxtCPFCliente.setEnabled(false);
+                btnPesquisarCliente.setEnabled(false);
+                msktxtCPFVendedor.setEnabled(true);
+                btnPesquisarVendedor.setEnabled(true);
+            }
         }
         else {
             JOptionPane.showConfirmDialog(null, "CPF Inválido","Erro",JOptionPane.DEFAULT_OPTION);
@@ -467,6 +515,78 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             msktxtCPFCliente.requestFocus();
         }
     }//GEN-LAST:event_btnPesquisarClienteActionPerformed
+
+    private void btnPesquisarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarPedidoActionPerformed
+        pedido = null;
+        pedido = daoPedido.consultar(txtNumeroPedido.getText());
+        
+        if(pedido == null) {
+            btnPesquisarPedido.setEnabled(false);
+            msktxtDataPedido.setEnabled(true);
+            btnPesquisarCliente.setEnabled(true);
+            msktxtCPFVendedor.setEnabled(false);
+            btnPesquisarVendedor.setEnabled(false);
+            txtCodigoProduto.setEnabled(true);
+            btnPesquisarProduto.setEnabled(true);
+        }
+        else {
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+            btnRemoverItem.setEnabled(true);
+            btnPesquisarPedido.setEnabled(false);
+            txtCodigoProduto.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_btnPesquisarPedidoActionPerformed
+
+    private void msktxtDataPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_msktxtDataPedidoFocusLost
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        sdf.setLenient(false);
+        Date date;
+        
+        try {
+            date = sdf.parse(msktxtDataPedido.getText());
+            msktxtDataPedido.setEnabled(false);
+            msktxtCPFCliente.setEnabled(true);
+            btnPesquisarCliente.setEnabled(true);
+        } 
+        catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Data Inválida!", "Erro", JOptionPane.DEFAULT_OPTION);
+            msktxtDataPedido.setText("");
+            msktxtDataPedido.requestFocus();
+        }
+    }//GEN-LAST:event_msktxtDataPedidoFocusLost
+
+    private void btnPesquisarVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarVendedorActionPerformed
+        if(Pessoa.validarCPF(Pessoa.retiraCaracteres(msktxtCPFVendedor.getText()))) {
+            vendedor = daoVendedor.consultar(Pessoa.retiraCaracteres(msktxtCPFVendedor.getText()));
+            if(vendedor == null) {
+               JOptionPane.showConfirmDialog(null, "O Código do Vendedor não existe!","Erro",JOptionPane.DEFAULT_OPTION); 
+            }
+            else {
+                lblNomeVendedor.setText(vendedor.getNome());
+                pedido.setVendedor(vendedor);
+            }
+        }
+        else {
+            JOptionPane.showConfirmDialog(null, "CPF Inválido","Erro",JOptionPane.DEFAULT_OPTION);
+            lblNomeVendedor.setText("");
+            msktxtCPFVendedor.requestFocus();
+        }
+    }//GEN-LAST:event_btnPesquisarVendedorActionPerformed
+
+    private void btnPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarProdutoActionPerformed
+        produto = daoProduto.consultar(txtCodigoProduto.getText());
+        if(produto == null) {
+            JOptionPane.showConfirmDialog(null, "O Código do Produto não existe!","Erro",JOptionPane.DEFAULT_OPTION);
+        }
+        else {
+            lblDescricaoProduto.setText(produto.getDescricao());
+            btnAdicionarItem.setEnabled(true);
+            btnRemoverItem.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_btnPesquisarProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -531,9 +651,9 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDescricaoProduto;
     private javax.swing.JLabel lblNomeCliente;
+    private javax.swing.JLabel lblNomeVendedor;
     private javax.swing.JLabel lblQtdeItemPedido;
     private javax.swing.JLabel lblValorTotPedido;
-    private javax.swing.JLabel lblVendedor;
     private javax.swing.JFormattedTextField msktxtCPFCliente;
     private javax.swing.JFormattedTextField msktxtCPFVendedor;
     private javax.swing.JFormattedTextField msktxtDataPedido;
@@ -544,11 +664,13 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumeroPedido;
     private javax.swing.JTextField txtQuantidadeVendida;
     // End of variables declaration//GEN-END:variables
-    //private DaoEmitirPedido daoEmitirPedido = null;
     private Pedido pedido = null;
     private Conexao conexao = null;
     private DaoPedido daoPedido = null;
     private DaoCliente daoCliente = null;
     private DaoVendedor daoVendedor = null;
+    private DaoProduto daoProduto = null;
     private Cliente cliente = null;
+    private Vendedor vendedor = null;
+    private Produto produto = null;
 }
