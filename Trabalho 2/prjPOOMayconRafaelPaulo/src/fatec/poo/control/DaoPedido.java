@@ -46,7 +46,21 @@ public class DaoPedido {
                 ps.setString(7, "0");
             }
             
-            //TODO item pedido
+            ps = conn.prepareStatement("UPDATE CLIENTE_POO set LIMITE_DISP = ? where CPF = ?");
+            
+            ps.setDouble(1, pedido.getCliente().getLimiteDisp());
+            ps.setString(2, pedido.getCliente().getCpf());
+            
+            ps.execute();
+            
+            for (int i = 0; i < pedido.getItemPedidoSize(); i++) {
+                ps = conn.prepareStatement("INSERT INTO ITEM_PEDIDO_POO(sequencia, cod_produto, num_pedido, qtde_vendida) VALUES(sq_item_pedido_sequencia.nextval, ?, ?, ?)");
+                ps.setString(1, pedido.getItemPedido(i).getProduto().getCodigo());
+                ps.setString(2, pedido.getNumero());
+                ps.setDouble(3, pedido.getItemPedido(i).getQtdeVendida());
+                
+                ps.execute();
+            }
                       
             ps.execute();
         } catch (SQLException ex) {
@@ -74,9 +88,27 @@ public class DaoPedido {
             }
             ps.setString(7, pedido.getNumero());
             
-            //TODO item pedido
+            ps = conn.prepareStatement("DELETE FROM ITEM_PEDIDO_POO where num_pedido = ?");
+            
+            ps.setString(1, pedido.getNumero());
                       
             ps.execute();
+            
+            ps = conn.prepareStatement("UPDATE CLIENTE_POO set LIMITE_DISP = ? where CPF = ?");
+            
+            ps.setDouble(1, pedido.getCliente().getLimiteDisp());
+            ps.setString(2, pedido.getCliente().getCpf());
+            
+            ps.execute();
+            
+            for (int i = 0; i < pedido.getItemPedidoSize(); i++) {
+                ps = conn.prepareStatement("INSERT INTO ITEM_PEDIDO_POO(sequencia, cod_produto, num_pedido, qtde_vendida) VALUES(sq_item_pedido_sequencia.nextval, ?, ?, ?)");
+                ps.setString(1, pedido.getItemPedido(i).getProduto().getCodigo());
+                ps.setString(2, pedido.getNumero());
+                ps.setDouble(3, pedido.getItemPedido(i).getQtdeVendida());
+                
+                ps.execute();
+            }
         } catch (SQLException ex) {
              System.out.println(ex.toString());   
         }
@@ -91,9 +123,12 @@ public class DaoPedido {
        
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("SELECT * from PEDIDO_POO"
-                                    + "JOIN CLIENTE_POO ON cpf_cliente = CLIENTE_POO.cpf"
-                                    + "JOIN VENDEDOR_POO ON cpf_vendedor = VENDEDOR_POO.cpf"
+            ps = conn.prepareStatement("SELECT data_emissao, data_pagto, forma_pagto, situacao, "
+                                    + "cpf_cliente, CLIENTE_POO.nome as cliente_nome, CLIENTE_POO.limite_cred as cliente_limite_cred, "
+                                    + "cpf_vendedor, VENDEDOR_POO.nome as vendedor_nome, VENDEDOR_POO.salario_base as vendedor_salario_base "
+                                    + "from PEDIDO_POO "
+                                    + "JOIN CLIENTE_POO ON cpf_cliente = CLIENTE_POO.cpf "
+                                    + "JOIN VENDEDOR_POO ON cpf_vendedor = VENDEDOR_POO.cpf "
                                     + "WHERE numero = ?");
             
             ps.setString(1, numero);
@@ -101,8 +136,8 @@ public class DaoPedido {
            
             if (rs.next()) {
                 pedido = new Pedido(numero, rs.getString("data_emissao"));
-                cliente = new Cliente(rs.getString("cpf_cliente"), rs.getString("CLIENTE_POO.nome"), rs.getDouble("CLIENTE_POO.limite_cred"));
-                vendedor = new Vendedor(rs.getString("cpf_vendedor"), rs.getString("VENDEDOR_POO.nome"), rs.getDouble("VENDEDOR_POO.salario_base"));
+                cliente = new Cliente(rs.getString("cpf_cliente"), rs.getString("cliente_nome"), rs.getDouble("cliente_limite_cred"));
+                vendedor = new Vendedor(rs.getString("cpf_vendedor"), rs.getString("vendedor_nome"), rs.getDouble("vendedor_salario_base"));
                 
                 pedido.setCliente(cliente);
                 pedido.setVendedor(vendedor);
@@ -110,9 +145,9 @@ public class DaoPedido {
                 pedido.setFormaPagto((rs.getInt("forma_pagto") == 1));
                 pedido.setSituacao((rs.getInt("situacao") == 1));
                 
-                ps = conn.prepareStatement("SELECT * from ITEM_PEDIDO_POO"
-                                    + "WHERE num_pedido = ?"
-                                    + "JOIN PRODUTO_POO ON cod_produto = codigo");
+                ps = conn.prepareStatement("SELECT * from ITEM_PEDIDO_POO "
+                                    + "JOIN PRODUTO_POO ON cod_produto = codigo "
+                                    + "WHERE num_pedido = ?");
                 
                 ps.setString(1, numero);
                 ResultSet rsItem = ps.executeQuery();
@@ -125,7 +160,7 @@ public class DaoPedido {
                     pedido.addItemPedido(itemPedido);
                 }
                 
-                cliente.setLimiteDisp(rs.getDouble("CLIENTE_POO.limite_disp"));
+                cliente.setLimiteDisp(rs.getDouble("cliente_limite_disp"));
             }
         }
         catch (SQLException ex) { 
@@ -137,6 +172,13 @@ public class DaoPedido {
      public void excluir(Pedido pedido) {
         PreparedStatement ps = null;
         try {
+            ps = conn.prepareStatement("UPDATE CLIENTE_POO set LIMITE_DISP = ? where CPF = ?");
+            
+            ps.setDouble(1, pedido.getCliente().getLimiteDisp());
+            ps.setString(2, pedido.getCliente().getCpf());
+            
+            ps.execute();
+            
             ps = conn.prepareStatement("DELETE FROM ITEM_PEDIDO_POO where num_pedido = ?");
             
             ps.setString(1, pedido.getNumero());
