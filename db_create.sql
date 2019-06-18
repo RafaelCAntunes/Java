@@ -49,3 +49,5 @@ CREATE TABLE item_pedido_poo(
 	num_pedido		VARCHAR2	(20) REFERENCES pedido_poo,
 	qtde_vendida	NUMBER		(10)
 );
+
+CREATE SEQUENCE sq_item_pedido_sequencia;
