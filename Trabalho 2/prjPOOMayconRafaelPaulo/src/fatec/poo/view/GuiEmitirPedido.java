@@ -11,6 +11,7 @@ import fatec.poo.control.DaoPedido;
 import fatec.poo.control.DaoProduto;
 import fatec.poo.control.DaoVendedor;
 import fatec.poo.model.Cliente;
+import fatec.poo.model.ItemPedido;
 import fatec.poo.model.Pedido;
 import fatec.poo.model.Pessoa;
 import fatec.poo.model.Produto;
@@ -19,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -70,8 +72,8 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         txtQuantidadeVendida = new javax.swing.JTextField();
         btnAdicionarItem = new javax.swing.JButton();
         btnRemoverItem = new javax.swing.JButton();
-        tblItemPedido = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JScrollPanel1 = new javax.swing.JScrollPane();
+        tblItemPedido = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         lblDescricaoProduto = new javax.swing.JLabel();
@@ -92,7 +94,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pedido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pedido", 0, 0, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
         try {
             msktxtDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -121,7 +123,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         jLabel2.setText("Data do Pedido");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12)), "Forma de Pagamento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "", 0, 0, new java.awt.Font("Dialog", 0, 12)), "Forma de Pagamento", 0, 0, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
         buttonGroup1.add(rdbAVista);
         rdbAVista.setText("A Vista");
@@ -162,11 +164,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addComponent(txtNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(msktxtDataPedido)
-                .addGap(24, 24, 24)
+                .addComponent(msktxtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -184,7 +186,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cliente", 0, 0, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
         jLabel3.setText("CPF Cliente");
 
@@ -205,7 +207,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             }
         });
 
-        lblNomeCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblNomeCliente.setBorder(new javax.swing.border.SoftBevelBorder(1));
         lblNomeCliente.setName("lblNomeCliente"); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -236,7 +238,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Vendedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Vendedor", 0, 0, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
         jLabel4.setText("CPF Vendedor");
         jLabel4.setName(""); // NOI18N
@@ -258,7 +260,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             }
         });
 
-        lblNomeVendedor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblNomeVendedor.setBorder(new javax.swing.border.SoftBevelBorder(1));
         lblNomeVendedor.setName("lblNomeVendedor"); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -311,12 +313,22 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         btnAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnAdicionarItem.setText("Adicionar Item");
         btnAdicionarItem.setEnabled(false);
+        btnAdicionarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarItemActionPerformed(evt);
+            }
+        });
 
         btnRemoverItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnRemoverItem.setText("Remover Item");
         btnRemoverItem.setEnabled(false);
+        btnRemoverItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverItemActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblItemPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -332,17 +344,17 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tblItemPedido.setViewportView(jTable1);
+        JScrollPanel1.setViewportView(tblItemPedido);
 
         jLabel8.setText("Valor Total do Pedido");
 
         jLabel9.setText("Quantidade de Itens do Pedido");
 
-        lblDescricaoProduto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblDescricaoProduto.setBorder(new javax.swing.border.SoftBevelBorder(1));
 
-        lblQtdeItemPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblQtdeItemPedido.setBorder(new javax.swing.border.SoftBevelBorder(1));
 
-        lblValorTotPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblValorTotPedido.setBorder(new javax.swing.border.SoftBevelBorder(1));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -351,7 +363,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tblItemPedido)
+                    .addComponent(JScrollPanel1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,7 +417,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                     .addComponent(btnRemoverItem)
                     .addComponent(btnAdicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tblItemPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JScrollPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblValorTotPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,12 +433,30 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/save.png"))); // NOI18N
         btnIncluir.setText("Incluir");
+        btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -487,11 +517,16 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        conexao = new Conexao("BD1723010","BD1723010");
+        conexao = new Conexao("BD1723028","BD1723028");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
         conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
         daoPedido = new DaoPedido(conexao.conectar());
         daoCliente = new DaoCliente(conexao.conectar());
+        daoVendedor = new DaoVendedor(conexao.conectar());
+        daoProduto = new DaoProduto(conexao.conectar());
+        
+        modTblItem = (DefaultTableModel) tblItemPedido.getModel();
+        
     }//GEN-LAST:event_formWindowActivated
 
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
@@ -507,6 +542,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 btnPesquisarCliente.setEnabled(false);
                 msktxtCPFVendedor.setEnabled(true);
                 btnPesquisarVendedor.setEnabled(true);
+                msktxtCPFVendedor.requestFocus();
             }
         }
         else {
@@ -523,18 +559,54 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         if(pedido == null) {
             btnPesquisarPedido.setEnabled(false);
             msktxtDataPedido.setEnabled(true);
+            msktxtDataPedido.requestFocus();
             btnPesquisarCliente.setEnabled(true);
             msktxtCPFVendedor.setEnabled(false);
             btnPesquisarVendedor.setEnabled(false);
             txtCodigoProduto.setEnabled(true);
             btnPesquisarProduto.setEnabled(true);
+            btnIncluir.setEnabled(true);
         }
         else {
+            txtNumeroPedido.setText(pedido.getNumero());
+            msktxtDataPedido.setText(pedido.getDataEmissao());
+            if(pedido.getFormaPagto()) {
+                rdbAPrazo.setSelected(true);
+            }
+            else {
+                rdbAVista.setSelected(true);
+            }
+            msktxtCPFCliente.setText(pedido.getCliente().getCpf());
+            btnPesquisarClienteActionPerformed(evt);
+            msktxtCPFVendedor.setText(pedido.getVendedor().getCpf());
+            btnPesquisarVendedorActionPerformed(evt);
+            lblQtdeItemPedido.setText(String.valueOf(pedido.getItemPedidoSize()));
+            for(int i = 0; i <= pedido.getItemPedidoSize() -1; i++) {
+                
+                String Linha[] = { pedido.getItemPedido(i).getProduto().getCodigo(), 
+                                   pedido.getItemPedido(i).getProduto().getDescricao(),
+                                   String.valueOf(pedido.getItemPedido(i).getProduto().getPreco()),
+                                   String.valueOf(pedido.getItemPedido(i).getQtdeVendida()),
+                                   String.valueOf(pedido.getItemPedido(i).getQtdeVendida() * pedido.getItemPedido(i).getProduto().getPreco())
+                                 };
+                
+                modTblItem.addRow(Linha);
+                
+                if (lblValorTotPedido.getText() == "") {
+                    lblValorTotPedido.setText(String.valueOf(pedido.getItemPedido(i).getQtdeVendida() * pedido.getItemPedido(i).getProduto().getPreco()));
+                }
+                else {
+                    lblValorTotPedido.setText(String.valueOf( Double.parseDouble(lblValorTotPedido.getText()) + ( pedido.getItemPedido(i).getQtdeVendida() * pedido.getItemPedido(i).getProduto().getPreco() )));
+                }
+            }
+            
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
+            btnAdicionarItem.setEnabled(true);
             btnRemoverItem.setEnabled(true);
             btnPesquisarPedido.setEnabled(false);
             txtCodigoProduto.setEnabled(true);
+            txtQuantidadeVendida.setEnabled(true);
             
         }
     }//GEN-LAST:event_btnPesquisarPedidoActionPerformed
@@ -546,9 +618,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         
         try {
             date = sdf.parse(msktxtDataPedido.getText());
+            pedido = new Pedido(txtNumeroPedido.getText(), msktxtDataPedido.getText());
             msktxtDataPedido.setEnabled(false);
             msktxtCPFCliente.setEnabled(true);
             btnPesquisarCliente.setEnabled(true);
+            msktxtCPFCliente.requestFocus();
         } 
         catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Data Inválida!", "Erro", JOptionPane.DEFAULT_OPTION);
@@ -566,6 +640,8 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             else {
                 lblNomeVendedor.setText(vendedor.getNome());
                 pedido.setVendedor(vendedor);
+                msktxtCPFVendedor.setEnabled(false);
+                btnPesquisarVendedor.setEnabled(false);
             }
         }
         else {
@@ -584,9 +660,100 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             lblDescricaoProduto.setText(produto.getDescricao());
             btnAdicionarItem.setEnabled(true);
             btnRemoverItem.setEnabled(true);
+            txtQuantidadeVendida.setEnabled(true);
         }
         
     }//GEN-LAST:event_btnPesquisarProdutoActionPerformed
+
+    private void btnAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarItemActionPerformed
+        if( txtQuantidadeVendida.getText() == "" || txtQuantidadeVendida.getText() == "0") {
+            JOptionPane.showConfirmDialog(null, "A Quantidade Vendida deve ser maior que zero!","Erro",JOptionPane.DEFAULT_OPTION);
+        }
+        else {
+            if(Double.parseDouble(txtQuantidadeVendida.getText()) > produto.getQtdeEstoque()) {
+                JOptionPane.showConfirmDialog(null, "Quantidade de Estoque não é suficiente!","Erro",JOptionPane.DEFAULT_OPTION);
+            }
+            else {
+                itemPedido = new ItemPedido(1,Double.parseDouble(txtQuantidadeVendida.getText()), produto);
+                pedido.addItemPedido(itemPedido);
+                
+                String Linha[] = { itemPedido.getProduto().getCodigo(), 
+                                   itemPedido.getProduto().getDescricao(),
+                                   String.valueOf(itemPedido.getProduto().getPreco()),
+                                   String.valueOf(itemPedido.getQtdeVendida()),
+                                   String.valueOf(itemPedido.getQtdeVendida() * itemPedido.getProduto().getPreco())
+                                 };
+                
+                modTblItem.addRow(Linha);
+                
+                if(rdbAPrazo.isSelected() && (itemPedido.getQtdeVendida() * itemPedido.getProduto().getPreco()) > pedido.getCliente().getLimiteDisp()) {
+                    JOptionPane.showConfirmDialog(null, "O Cliente não possui Limite Disponível!","Erro",JOptionPane.DEFAULT_OPTION);
+                }
+                else {
+                    pedido.getCliente().subLimiteDisp(itemPedido.getQtdeVendida() * itemPedido.getProduto().getPreco());
+                    if (lblValorTotPedido.getText() == "") {
+                        lblValorTotPedido.setText(String.valueOf(itemPedido.getQtdeVendida() * itemPedido.getProduto().getPreco()));
+                    }
+                    else {
+                        lblValorTotPedido.setText(String.valueOf( Double.parseDouble(lblValorTotPedido.getText()) + ( itemPedido.getQtdeVendida() * itemPedido.getProduto().getPreco() )));
+                    }
+                    if (lblQtdeItemPedido.getText() == "") {
+                        lblQtdeItemPedido.setText("1");
+                    }
+                    else {
+                        lblQtdeItemPedido.setText(String.valueOf(Integer.valueOf(lblQtdeItemPedido.getText()) + 1));
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btnAdicionarItemActionPerformed
+
+    private void btnRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverItemActionPerformed
+        if( tblItemPedido.getSelectedRow() == -1) {
+            JOptionPane.showConfirmDialog(null, "A linha não foi selecionada","Erro",JOptionPane.DEFAULT_OPTION);
+        }
+        else {
+            pedido.getCliente().addLimiteDisp( Double.valueOf( String.valueOf(tblItemPedido.getValueAt(tblItemPedido.getSelectedRow(), 3)))  *  itemPedido.getProduto().getPreco());
+            lblValorTotPedido.setText(String.valueOf( Double.parseDouble(lblValorTotPedido.getText()) - ( Double.valueOf( String.valueOf(tblItemPedido.getValueAt(tblItemPedido.getSelectedRow(), 3)))  * 
+                                                                                                          itemPedido.getProduto().getPreco() )));
+            lblQtdeItemPedido.setText(String.valueOf(Integer.valueOf(lblQtdeItemPedido.getText()) - 1));
+            modTblItem.removeRow(tblItemPedido.getSelectedRow());
+        }
+        
+    }//GEN-LAST:event_btnRemoverItemActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        daoPedido.inserir(pedido);
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        daoPedido.alterar(pedido);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        daoPedido.excluir(pedido);
+        
+        txtNumeroPedido.setText("");
+        msktxtDataPedido.setText("");
+        msktxtDataPedido.setEnabled(false);
+        msktxtCPFCliente.setText("");
+        msktxtCPFCliente.setEnabled(false);
+        lblNomeCliente.setText("");
+        msktxtCPFVendedor.setText("");
+        msktxtCPFVendedor.setEnabled(false);
+        lblNomeVendedor.setText("");
+        btnAdicionarItem.setEnabled(false);
+        btnRemoverItem.setEnabled(false);
+        btnPesquisarCliente.setEnabled(false);
+        btnPesquisarProduto.setEnabled(false);
+        btnPesquisarVendedor.setEnabled(false);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        tblItemPedido.removeRowSelectionInterval(0, pedido.getItemPedidoSize()-1);
+        
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -624,6 +791,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane JScrollPanel1;
     private javax.swing.JButton btnAdicionarItem;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnExcluir;
@@ -648,7 +816,6 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDescricaoProduto;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblNomeVendedor;
@@ -659,7 +826,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField msktxtDataPedido;
     private javax.swing.JRadioButton rdbAPrazo;
     private javax.swing.JRadioButton rdbAVista;
-    private javax.swing.JScrollPane tblItemPedido;
+    private javax.swing.JTable tblItemPedido;
     private javax.swing.JTextField txtCodigoProduto;
     private javax.swing.JTextField txtNumeroPedido;
     private javax.swing.JTextField txtQuantidadeVendida;
@@ -673,4 +840,6 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     private Cliente cliente = null;
     private Vendedor vendedor = null;
     private Produto produto = null;
+    private ItemPedido itemPedido = null;
+    private DefaultTableModel modTblItem;
 }

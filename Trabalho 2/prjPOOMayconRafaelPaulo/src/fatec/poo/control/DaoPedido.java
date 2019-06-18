@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -46,6 +47,8 @@ public class DaoPedido {
                 ps.setString(7, "0");
             }
             
+            ps.execute();
+            
             ps = conn.prepareStatement("UPDATE CLIENTE_POO set LIMITE_DISP = ? where CPF = ?");
             
             ps.setDouble(1, pedido.getCliente().getLimiteDisp());
@@ -53,7 +56,7 @@ public class DaoPedido {
             
             ps.execute();
             
-            for (int i = 0; i < pedido.getItemPedidoSize(); i++) {
+            for (int i = 0; i <= pedido.getItemPedidoSize() - 1; i++) {
                 ps = conn.prepareStatement("INSERT INTO ITEM_PEDIDO_POO(sequencia, cod_produto, num_pedido, qtde_vendida) VALUES(sq_item_pedido_sequencia.nextval, ?, ?, ?)");
                 ps.setString(1, pedido.getItemPedido(i).getProduto().getCodigo());
                 ps.setString(2, pedido.getNumero());
@@ -62,7 +65,6 @@ public class DaoPedido {
                 ps.execute();
             }
                       
-            ps.execute();
         } catch (SQLException ex) {
              System.out.println(ex.toString());   
         }
@@ -135,12 +137,13 @@ public class DaoPedido {
             ResultSet rs = ps.executeQuery();
            
             if (rs.next()) {
-                pedido = new Pedido(numero, rs.getString("data_emissao"));
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                pedido = new Pedido(numero, String.valueOf(sdf.format(rs.getDate("data_emissao"))));
                 cliente = new Cliente(rs.getString("cpf_cliente"), rs.getString("cliente_nome"), rs.getDouble("cliente_limite_cred"));
                 vendedor = new Vendedor(rs.getString("cpf_vendedor"), rs.getString("vendedor_nome"), rs.getDouble("vendedor_salario_base"));
                 
                 pedido.setCliente(cliente);
-                pedido.setVendedor(vendedor);
+                pedido.setVendedor(vendedor);                             
                 pedido.setDataPagto(rs.getString("data_pagto"));
                 pedido.setFormaPagto((rs.getInt("forma_pagto") == 1));
                 pedido.setSituacao((rs.getInt("situacao") == 1));

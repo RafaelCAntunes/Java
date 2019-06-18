@@ -291,7 +291,7 @@ public class GuiCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        conexao = new Conexao("BD1723010","BD1723010");
+        conexao = new Conexao("BD1723028","BD1723028");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
         conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
         daoCliente = new DaoCliente(conexao.conectar());
