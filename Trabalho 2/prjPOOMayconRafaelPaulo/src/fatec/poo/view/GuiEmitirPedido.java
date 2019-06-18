@@ -750,9 +750,13 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         btnIncluir.setEnabled(false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
-        tblItemPedido.removeRowSelectionInterval(0, pedido.getItemPedidoSize()-1);
-        
-        
+        for(int i = 0; i <= pedido.getItemPedidoSize()-1; i++) {
+            modTblItem.removeRow(0);
+        }
+        lblQtdeItemPedido.setText("");
+        lblValorTotPedido.setText("");
+        txtCodigoProduto.setEnabled(false);
+        txtQuantidadeVendida.setEnabled(false);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
