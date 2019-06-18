@@ -73,4 +73,24 @@ private ArrayList<ItemPedido> itemPedido = new ArrayList<ItemPedido>();
             this.cliente.subLimiteDisp(itemPedido.getQtdeVendida() * itemPedido.getProduto().getPreco());
         }
     }
+    
+    public void removeItemPedido(ItemPedido itemPedido){
+        for (int i = 0; i < this.getItemPedidoSize(); i++) {
+            if (this.getItemPedido(i).getSequencia() == itemPedido.getSequencia()) {
+                this.itemPedido.remove(i);
+                if (formaPagto) {
+                    this.cliente.addLimiteDisp(itemPedido.getQtdeVendida() * itemPedido.getProduto().getPreco());
+                }
+                break;
+            }
+        }
+    }
+    
+    public ItemPedido getItemPedido(int index) {
+        return this.itemPedido.get(index);
+    }
+    
+    public int getItemPedidoSize() {
+        return this.itemPedido.size();
+    }
 }
